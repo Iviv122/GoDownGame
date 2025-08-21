@@ -9,6 +9,7 @@ class_name ItemDisplay
 
 var dir : Vector2
 var isUnused : bool = true
+var isEnemy : bool 
 
 var time : float
 
@@ -28,7 +29,7 @@ func move(ndir : Vector2) -> void:
 	dir +=ndir*moveDist
 
 func _input(event: InputEvent) -> void:
-	if isUnused:
+	if isUnused && !isEnemy:
 		if event.is_action_pressed("up"):
 			move(Vector2.UP)
 			isUnused = false
@@ -43,6 +44,10 @@ func _input(event: InputEvent) -> void:
 			isUnused = false
 		elif event.is_action_pressed("damage"):
 			queue_free()
+	else:
+		if event.is_action_pressed("damage"):
+			queue_free()
 
 func change(item :Item) -> void:
 	texture = item.sprite
+	isEnemy = item.type == Item.ITEM_TYPE.ITEM_ENEMY
