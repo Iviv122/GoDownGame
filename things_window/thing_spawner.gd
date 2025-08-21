@@ -5,6 +5,7 @@ class_name ThingSpawner
 @export var speed: float = 1000 
 @export var moveDist: float = 250 
 @export var cur_label : Label
+@export var DestroyEffect : PackedScene
 
 func _ready() -> void:
 	cur.item_changed.connect(spawn)
@@ -16,5 +17,7 @@ func spawn(item :Item) -> void:
 	a.centered = true
 
 	a.cur = cur
+	a.DestroyEffect = DestroyEffect
 	cur_label.text = item.name
+
 	add_child(a)

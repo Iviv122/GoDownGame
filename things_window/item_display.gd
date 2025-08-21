@@ -6,6 +6,7 @@ class_name ItemDisplay
 @export var moveDist: float = 250 
 
 @export var rotateSpeed : float = 10
+@export var DestroyEffect : PackedScene
 
 var dir : Vector2
 var isUnused : bool = true
@@ -43,10 +44,20 @@ func _input(event: InputEvent) -> void:
 			move(Vector2.DOWN)
 			isUnused = false
 		elif event.is_action_pressed("damage"):
-			queue_free()
+			destroy()
+	elif !isUnused:
+		pass
 	else:
 		if event.is_action_pressed("damage"):
-			queue_free()
+			destroy()
+
+func destroy():
+	var a = DestroyEffect.instantiate()
+	a.position = global_position
+	a.restart()
+	get_tree().root.add_child(a)
+	queue_free()
+
 
 func change(item :Item) -> void:
 	texture = item.sprite

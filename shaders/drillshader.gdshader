@@ -7,6 +7,7 @@ uniform vec3 linesColor;
 
 uniform float linesSpeed;
 uniform float freq;
+uniform float angle;
 
 void vertex() {
 	VERTEX.x += cos(TIME)*1.;
@@ -22,4 +23,3 @@ void fragment() {
 
 	COLOR = vec4(ncolor,COLOR.a);
 }
-
