@@ -10,4 +10,6 @@ func _ready() -> void:
 
 func change(delta : int):
 	amount += delta
+	if amount <= 0:
+		amount = 0
 	changed.emit(amount)

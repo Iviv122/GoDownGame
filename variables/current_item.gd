@@ -68,6 +68,8 @@ func damage():
 func sell():
 	if item.type == item.ITEM_TYPE.ITEM_ENEMY:
 		m.change(-1)
-	else:
+	elif item.type == item.ITEM_TYPE.ITEM_MONEY:
 		m.change(1)
+		reroll()
+	else:
 		reroll()
