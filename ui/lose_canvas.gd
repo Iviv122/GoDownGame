@@ -40,7 +40,6 @@ func appear() -> void:
 func _process(delta: float) -> void:
 	if isLosing:
 		if offset.y > 0:
-			print("Appearing")
 			offset.y-=AppearSpeed*delta
 		else:
 			offset.y = 0
