@@ -6,9 +6,13 @@ class_name ItemDisplay
 @export var moveDist: float = 250 
 
 @export var rotateSpeed : float = 10
+@export var rotateStrength : float = 2
+
 @export var DestroyEffect : PackedScene
+@export var Effects : EffectsCaller 
 
 var dir : Vector2
+var targetPos : Vector2
 var isUnused : bool = true
 var isEnemy : bool 
 
@@ -20,14 +24,27 @@ func _ready() -> void:
 	dir = position
 
 func _process(delta: float) -> void:
-	if !isUnused && position == dir:
+	if !isUnused && position == targetPos:
+		effect()
 		queue_free() 
-	position = position.move_toward(dir,speed*delta)
+
+	position = position.move_toward(targetPos,speed*delta)
 	time += delta*rotateSpeed
-	rotation_degrees = sin(time)
+	rotation_degrees = sin(time)*rotateStrength
+
+func effect() ->void:
+	if dir == Vector2.UP:
+		Effects.play_heat()
+	elif  dir == Vector2.DOWN:
+		Effects.play_money()
+	elif  dir == Vector2.LEFT:
+		Effects.play_cool()
+	elif  dir == Vector2.RIGHT:
+		Effects.play_oxygen()
 
 func move(ndir : Vector2) -> void:
-	dir +=ndir*moveDist
+	dir = ndir
+	targetPos =ndir*moveDist
 
 func _input(event: InputEvent) -> void:
 	if isUnused && !isEnemy:
@@ -57,7 +74,6 @@ func destroy():
 	a.restart()
 	get_tree().root.add_child(a)
 	queue_free()
-
 
 func change(item :Item) -> void:
 	texture = item.sprite

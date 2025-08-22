@@ -10,6 +10,7 @@ var item: Item
 @export var m: Money
 
 signal item_changed(thing: Item)
+signal mistake()
 
 func _ready():
 	reroll()
@@ -37,8 +38,10 @@ func cool():
 		reroll()
 	elif item.type == item.ITEM_TYPE.ITEM_ENEMY:
 		t.update(-5)
+		mistake.emit()
 	else:
 		t.update(-5)
+		mistake.emit()
 		reroll()
 
 func oxygen_refuel():
@@ -47,8 +50,10 @@ func oxygen_refuel():
 		reroll()
 	elif item.type == item.ITEM_TYPE.ITEM_ENEMY:
 		o.update(-5)
+		mistake.emit()
 	else:
 		o.update(-5)
+		mistake.emit()
 		reroll()
 
 func fuel_refuel():
@@ -57,8 +62,10 @@ func fuel_refuel():
 		reroll()
 	elif item.type == item.ITEM_TYPE.ITEM_ENEMY:
 		f.update(-5)
+		mistake.emit()
 	else:
 		f.update(-5)
+		mistake.emit()
 		reroll()
 
 func damage():
@@ -68,6 +75,7 @@ func damage():
 func sell():
 	if item.type == item.ITEM_TYPE.ITEM_ENEMY:
 		m.change(-1)
+		mistake.emit()
 	elif item.type == item.ITEM_TYPE.ITEM_MONEY:
 		m.change(1)
 		reroll()
