@@ -12,6 +12,6 @@ func _ready() -> void:
 
 func start() ->void:
 	started = 1 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta: float) -> void:
 	modulate.a += delta*started
