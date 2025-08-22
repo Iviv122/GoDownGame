@@ -6,6 +6,7 @@ class_name Stat
 @export var drainSpeed : float = 1
 
 signal updated(amount:float)
+signal lose()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	amount = maxAmount
@@ -16,7 +17,8 @@ func update(delta : float) -> void:
 		amount = maxAmount
 	if amount <= 0:
 		amount = 0
-		# lose signal
+		lose.emit()
+
 	updated.emit(amount)
 
 func _process(delta: float) -> void:

@@ -11,11 +11,12 @@ var amount = 10
 @export var stats : Array[Stat]
 
 func _process(delta: float) -> void:
-	speed += 0.01*delta
 
 	if speed <= 5:
+		speed += 0.01*delta
 		for i in stats:
 			i.drainSpeed = speed
+
 
 
 
